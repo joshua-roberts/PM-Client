@@ -1,0 +1,18 @@
+<div class="main-content" style="padding: 10% 20%;">
+    <div class="card card-nav-tabs">
+        <div class="card-header card-header-danger">
+            <h1>PM Health</h1>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h4>Welcome, {{username}}</h4>
+                    <p>This is the PmHealth Portal. The links listed are the links you have access to based on your access rights.  Use the links provided in to navigate the application.</p>
+                </div>
+                <div class="col-lg-6">
+                    <a *ngFor="let link of links" class="btn btn-danger col-lg-12" [routerLink]="toRouterLink(link)">{{link}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

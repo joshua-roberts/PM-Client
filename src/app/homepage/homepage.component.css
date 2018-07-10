@@ -1,0 +1,33 @@
+.top-buffer {
+    margin-top:20px;
+}
+
+.sep-buffer {
+    margin-top:20px;
+}
+
+.app-buffer {
+    margin-right:20px;
+    margin-left:20px;
+    cursor: pointer;
+    padding: auto 0;
+}
+.app-buffer:hover {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+}
+.app-buffer:active {
+    box-shadow: none;
+}
+
+.custom-bg {
+    /* The image used */
+    background-image: url("bg.png");
+
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

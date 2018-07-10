@@ -1,0 +1,61 @@
+<div class="wrapper">
+  <div class="sidebar" data-color="danger" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+      <app-sidebar [patientsActive]="true"></app-sidebar>
+    <div class="sidebar-background" style="background-image: url(../assets/img/sidebar-4.jpg)"></div>
+  </div>
+  <div class="main-panel">
+      <div class="main-content">
+          <div class="container-fluid">
+              <div class="row">
+                  <div class="col-md-12">
+                      <div class="card">
+                          <div class="card-header card-header-danger">
+                              <h4 class="card-title ">Patients</h4>
+                          </div>
+                          <div class="card-body">
+                              <div class="table-responsive">
+                                  <table class="table table-striped table-hover">
+                                      <thead>
+                                      <tr>
+                                          <th>Patient ID</th>
+                                          <th>Name</th>
+                                          <th>DOB</th>
+                                          <th>Gender</th>
+                                          <th>SSN</th>
+                                          <th>Race</th>
+                                          <th>Marital Status</th>
+                                          <th>Cell Phone</th>
+                                          <th>Work Phone</th>
+                                          <th>Home Phone</th>
+                                          <th>Email</th>
+                                          <th>Address</th>
+                                      </tr>
+                                      </thead>
+                                      <tbody>
+                                      <tr *ngFor="let rec of records" style="cursor: pointer;" [routerLink]="['../patient-detail', rec.patientId]">
+                                          <td>{{ rec.patientId }}</td>
+                                          <td>{{ rec.name }}</td>
+                                          <td>{{ rec.dob }}</td>
+                                          <td>{{ rec.gender }}</td>
+                                          <td>{{ rec.ssn }}</td>
+                                          <td>{{ rec.race }}</td>
+                                          <td>{{ rec.maritalStatus }}</td>
+                                          <td>{{ rec.cellPhone }}</td>
+                                          <td>{{ rec.workPhone }}</td>
+                                          <td>{{ rec.homePhone }}</td>
+                                          <td>{{ rec.email }}</td>
+                                          <td>{{ rec.address }}</td>
+                                      </tr>
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+

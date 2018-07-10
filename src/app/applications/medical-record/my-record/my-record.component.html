@@ -1,0 +1,328 @@
+<!--
+<div class="wrapper">
+    <div class="sidebar" data-color="danger" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+        <app-sidebar></app-sidebar>
+        <div class="sidebar-background" style="background-image: url(../assets/img/sidebar-4.jpg)"></div>
+    </div>
+    <div class="main-panel">
+        <div class="main-content">
+            <div class="container-fluid">
+                <div *ngIf="infoModel.name" class="col-lg-12" style="text-align: center; margin-bottom: 5px">
+                    <h5 class="comp-header" style="border-bottom: solid #008cba; margin: 0; padding: 5px;"><strong>Patient Info</strong></h5>
+                    <div id="info-div" class="rec-comp" style="overflow: hidden; margin: 0;">
+                        <form (submit)="updateInfo()">
+                            <div *ngIf="infoModel.patientId" class="col-lg-2 info-field">
+                                <small class="form-text">Patient ID</small><br>
+                                <div class="input-group input-group-sm col-lg-12">
+                                    <input type="text" class="form-control input-sm" name="patientId" [(ngModel)]="infoModel.patientId"/>
+                                </div>
+                            </div>
+                            <div *ngIf="infoModel.name" class="col-lg-2 info-field">
+                                <small class="form-text">Name</small><br>
+                                <div class="input-group input-group-sm col-lg-12">
+                                    <input type="text" class="form-control input-sm" name="name" [(ngModel)]="infoModel.name"/>
+                                    <span class="input-group-btn" *ngIf="infoWriteFields.includes('name')">
+              <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+            </span>
+                                </div>
+                            </div>
+                            <div *ngIf="infoModel.dob" class="col-lg-2 info-field">
+                                <small class="form-text">DOB</small><br>
+                                <div class="input-group input-group-sm col-lg-12">
+                                    <input type="text" class="form-control input-sm" name="dob" [(ngModel)]="infoModel.dob" />
+                                    <span class="input-group-btn" *ngIf="infoWriteFields.includes('dob')">
+                <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+              </span>
+                                </div>
+                            </div>
+                            <div *ngIf="infoModel.ssn" class="col-lg-2 info-field">
+                                <small class="form-text">SSN</small><br>
+                                <div class="input-group input-group-sm col-lg-12">
+                                    <input type="text" class="form-control input-sm" name="ssn" [(ngModel)]="infoModel.ssn" />
+                                    <span class="input-group-btn" *ngIf="infoWriteFields.includes('ssn')">
+              <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+            </span>
+                                </div>
+                            </div>
+                            <div *ngIf="infoModel.gender" class="col-lg-2 info-field">
+                                <small class="form-text">Gender</small><br>
+                                <div class="input-group input-group-sm col-lg-12">
+                                    <input type="text" class="form-control input-sm" name="gender" [(ngModel)]="infoModel.gender" />
+                                    <span class="input-group-btn" *ngIf="infoWriteFields.includes('gender')">
+              <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+            </span>
+                                </div>
+                            </div>
+                            <div *ngIf="infoModel.race" class="col-lg-2 info-field">
+                                <small class="form-text">Race</small><br>
+                                <div class="input-group input-group-sm col-lg-12">
+                                    <input type="text" class="form-control input-sm" name="race" [(ngModel)]="infoModel.race" />
+                                    <span class="input-group-btn" *ngIf="infoWriteFields.includes('race')">
+              <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+            </span>
+                                </div>
+                            </div>
+                            <div *ngIf="infoModel.maritalStatus" class="col-lg-2 info-field">
+                                <small class="form-text">Marital Status</small><br>
+                                <div class="input-group input-group-sm col-lg-12">
+                                    <input type="text" class="form-control input-sm" name="maritalStatus" [(ngModel)]="infoModel.maritalStatus" />
+                                    <span class="input-group-btn" *ngIf="infoWriteFields.includes('marital_status')">
+              <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+            </span>
+                                </div>
+                            </div>
+                            <div *ngIf="infoModel.cellPhone" class="col-lg-2 info-field">
+                                <small class="form-text">Cell Phone</small><br>
+                                <div class="input-group input-group-sm col-lg-12">
+                                    <input type="text" class="form-control input-sm" name="cellPhone" [(ngModel)]="infoModel.cellPhone" />
+                                    <span class="input-group-btn" *ngIf="infoWriteFields.includes('cell_phone')">
+              <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+            </span>
+                                </div>
+                            </div>
+                            <div *ngIf="infoModel.workPhone" class="col-lg-2 info-field">
+                                <small class="form-text">Work Phone</small><br>
+                                <div class="input-group input-group-sm col-lg-12">
+                                    <input type="text" class="form-control input-sm" name="workPhone" [(ngModel)]="infoModel.workPhone" />
+                                    <span class="input-group-btn" *ngIf="infoWriteFields.includes('work_phone')">
+              <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+            </span>
+                                </div>
+                            </div>
+                            <div *ngIf="infoModel.homePhone" class="col-lg-2 info-field">
+                                <small class="form-text">Home Phone</small><br>
+                                <div class="input-group input-group-sm col-lg-12">
+                                    <input type="text" class="form-control input-sm" name="homePhone" [(ngModel)]="infoModel.homePhone" />
+                                    <span class="input-group-btn" *ngIf="infoWriteFields.includes('home_phone')">
+              <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+            </span>
+                                </div>
+                            </div>
+                            <div *ngIf="infoModel.email" class="col-lg-2 info-field">
+                                <small class="form-text">Email</small><br>
+                                <div class="input-group input-group-sm col-lg-12">
+                                    <input type="text" class="form-control input-sm" name="email" [(ngModel)]="infoModel.email" />
+                                    <span class="input-group-btn" *ngIf="infoWriteFields.includes('email')">
+              <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+            </span>
+                                </div>
+                            </div>
+                            <div *ngIf="infoModel.address" class="col-lg-2 info-field">
+                                <small class="form-text">Address</small><br>
+                                <div class="input-group input-group-sm col-lg-12">
+                                    <input type="text" class="form-control input-sm" name="address" [(ngModel)]="infoModel.address" />
+                                    <span class="input-group-btn" *ngIf="infoWriteFields.includes('address')">
+              <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+            </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-12" style="text-align: center; margin-bottom: 5px; font-size: smaller">
+                    <div *ngIf="validVitals(vitalsModel)" class="col-lg-4" style=" padding-left: 0; padding-right: 5px;">
+                        <h5 class="comp-header" style="margin: 0; padding: 5px;"><strong>Latest Vitals <small>{{vitalsModel.date}}</small></strong></h5>
+                        <div class="rec-comp" style="text-align: left; padding: 0 5px; height: 90px;">
+                            <small class="form-text">Height</small>
+                            {{ vitalsModel.height }}cm
+                            <br><small class="form-text">Weight</small>
+                            {{ vitalsModel.weight }}kg
+                            <br><small class="form-text">Temperature</small>
+                            {{ vitalsModel.temperature }}&#8457;
+                            <br><small class="form-text">Pulse</small>
+                            {{ vitalsModel.pulse }}/min
+                            <br><small class="form-text">BP</small>
+                            {{ vitalsModel.bloodPressure }}
+                        </div>
+                    </div>
+                    <div *ngIf="diagnosisList.length > 0" class="col-lg-4" style=" padding-left: 5px; padding-right: 5px; overflow: auto;">
+                        <h5 class="comp-header" style="; margin: 0; padding: 5px;"><strong>Diagnoses</strong></h5>
+                        <div class="rec-comp" style="text-align: left; padding: 0 5px; height: 90px;">
+                            <ul style="margin-bottom: 0;">
+                                <li *ngFor="let diag of diagnosisList">{{ diag.diagnoses }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div *ngIf="prescriptions.length > 0" class="col-lg-4" style=" padding-left: 5px; padding-right: 0; overflow: auto">
+                        <h5 class="comp-header" style="margin: 0; padding: 5px;"><strong>Medications</strong></h5>
+                        <div class="rec-comp" style="text-align: left; padding: 0 5px; height: 90px;">
+                            <ul style="margin-bottom: 0;">
+                                <li *ngFor="let pres of prescriptions">{{ pres }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="visitList.length > 0" class="col-lg-12" style="text-align: center; margin-bottom: 10px;">
+                    <h5 class="comp-header" style="margin: 0; padding: 5px;"><strong>Visits</strong></h5>
+                    <div class="rec-comp" id="visits-div" style="overflow: hidden; margin: 0; text-align: left;">
+                        <div class="col-lg-4" style="padding: 0; overflow: auto">
+                            <table class="table table-hover">
+                                <tbody>
+                                <tr *ngFor="let visit of visitList" style="cursor: pointer;"
+                                    (click)="setCurrentVisit(visit)"
+                                    [ngStyle]="{backgroundColor: visit.visitId == currentVisit.visitId ? '#008cba' : '', color: visit.visitId == currentVisit.visitId ? 'white' : 'black'}">
+                                    <td>
+                                        <strong>Visit ID:</strong> {{ visit.visitId }}<br>
+                                        <strong>Admission Date:</strong> {{ visit.admissionDate }}<br>
+                                        <strong>Discharge Date:</strong> {{ visit.dischargeDate }}<span *ngIf="visit.dischargeDate == null" style="background-color: #43ac6a; padding: 5px 15px; color: white; text-align: center">Active</span><br>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-lg-8" style="background-color: white; padding: 5px; overflow: hidden; border-left: solid #008cba" *ngIf="currentVisit.visitId != null && show">
+                            <form (submit)="updateVisit()">
+                                <div class="row" style="">
+                                    <div *ngIf="currentVisit.admissionDate" class="col-lg-6">
+                                        <small class="form-text">Admission Date</small><br>
+                                        <div class="input-group input-group-sm col-lg-12">
+                                            <input type="text" class="form-control input-sm" name="admissionDate" [(ngModel)]="currentVisit.admissionDate" />
+                                            <span class="input-group-btn" *ngIf="visitWriteFields.includes('admission_date')">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+                  </span>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="currentVisit.dischargeDate" class="col-lg-6">
+                                        <small class="form-text">Discharge Date</small><br>
+                                        <div class="input-group input-group-sm col-lg-12">
+                                            <input type="text" class="form-control input-sm" name="dischargeDate" [(ngModel)]="currentVisit.dischargeDate" />
+                                            <span class="input-group-btn" *ngIf="visitWriteFields.includes('discharge_date')">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+                  </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="validVitals(currentVisit.vitals)" class="row" style="">
+                                    <div *ngIf="currentVisit.vitals.height" class="col-lg-2">
+                                        <small class="form-text">Height</small><br>
+                                        <div class="input-group input-group-sm col-lg-12">
+                                            <input type="text" class="form-control input-sm" name="height" [(ngModel)]="currentVisit.vitals.height" />
+                                            <span class="input-group-btn" *ngIf="vitalsWriteFields.includes('height')">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+                  </span>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="currentVisit.vitals.weight" class="col-lg-2">
+                                        <small class="form-text">Weight</small><br>
+                                        <div class="input-group input-group-sm col-lg-12">
+                                            <input type="text" class="form-control input-sm" name="weight" [(ngModel)]="currentVisit.vitals.weight" />
+                                            <span class="input-group-btn" *ngIf="vitalsWriteFields.includes('weight')">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+                  </span>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="currentVisit.vitals.temperature" class="col-lg-3">
+                                        <small class="form-text">Temperature</small><br>
+                                        <div class="input-group input-group-sm col-lg-12">
+                                            <input type="text" class="form-control input-sm" name="temperature" [(ngModel)]="currentVisit.vitals.temperature" />
+                                            <span class="input-group-btn" *ngIf="vitalsWriteFields.includes('temperature')">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+                  </span>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="currentVisit.vitals.pulse" class="col-lg-2">
+                                        <small class="form-text">Pulse</small><br>
+                                        <div class="input-group input-group-sm col-lg-12">
+                                            <input type="text" class="form-control input-sm" name="pulse" [(ngModel)]="currentVisit.vitals.pulse" />
+                                            <span class="input-group-btn" *ngIf="vitalsWriteFields.includes('pulse')">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+                  </span>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="currentVisit.vitals.bloodPressure" class="col-lg-3">
+                                        <small class="form-text">BP</small><br>
+                                        <div class="input-group input-group-sm col-lg-12">
+                                            <input type="text" class="form-control input-sm" name="bloodPressure" [(ngModel)]="currentVisit.vitals.bloodPressure" />
+                                            <span class="input-group-btn" *ngIf="vitalsWriteFields.includes('blood_pressure')">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+                  </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div *ngIf="currentVisit.reason" class="col-lg-12">
+                                        <small class="form-text">Reason</small><br>
+                                        <div class="input-group input-group-sm col-lg-12">
+                                            <input type="text" class="form-control input-sm" name="reason" [(ngModel)]="currentVisit.reason" />
+                                            <span class="input-group-btn" *ngIf="visitWriteFields.includes('reason')">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+                  </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="">
+                                    <div *ngIf="currentVisit.diagnosis" class="col-lg-6">
+                                        <small class="form-text">Diagnosis</small><br>
+                                        <div class="input-group input-group-sm col-lg-12">
+                                            <input type="text" class="form-control input-sm" name="diagnosis" [(ngModel)]="currentVisit.diagnosis" />
+                                            <span class="input-group-btn" *ngIf="diagnosisWriteFields.includes('diagnosis')">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+                  </span>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="!currentVisit.diagnosis" class="col-lg-6">
+                                    </div>
+                                    <div *ngIf="currentVisit.treatment" class="col-lg-6">
+                                        <small class="form-text">Treatments</small><br>
+                                        <div class="input-group input-group-sm col-lg-12">
+                                            <input type="text" class="form-control input-sm" name="reason" [(ngModel)]="currentVisit.treatment" />
+                                            <span class="input-group-btn" *ngIf="treatmentWriteFields.includes('treatment')">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+                  </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="currentVisit.prescription" class="row" style="">
+                                    <div *ngIf="currentVisit.prescription.medicine" class="col-lg-4">
+                                        <small class="form-text">Prescription</small><br>
+                                        <div class="input-group input-group-sm col-lg-12">
+                                            <input type="text" class="form-control input-sm" name="medicine" [(ngModel)]="currentVisit.prescription.medicine" />
+                                            <span class="input-group-btn" *ngIf="prescriptionWriteFields.includes('medicine')">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+                  </span>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="currentVisit.prescription.dosage" class="col-lg-4">
+                                        <small class="form-text">Dosage</small><br>
+                                        <div class="input-group input-group-sm col-lg-12">
+                                            <input type="text" class="form-control input-sm" name="dosage" [(ngModel)]="currentVisit.prescription.dosage" />
+                                            <span class="input-group-btn" *ngIf="prescriptionWriteFields.includes('dosage')">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+                  </span>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="currentVisit.prescription.duration" class="col-lg-4">
+                                        <small class="form-text">Duration</small><br>
+                                        <div class="input-group input-group-sm col-lg-12">
+                                            <input type="text" class="form-control input-sm" name="duration" [(ngModel)]="currentVisit.prescription.duration" />
+                                            <span class="input-group-btn" *ngIf="prescriptionWriteFields.includes('duration')">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i></button>
+                  </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="currentVisit.notes" class="row" style="">
+                                    <div class="col-lg-12">
+                                        <small class="form-text">Notes</small><br>
+                                        <div class="input-group input-group-sm col-lg-12">
+                                            <textarea name="notes" [(ngModel)]="currentVisit.notes"></textarea>
+                                            <span class="input-group-btn" *ngIf="noteWriteField.includes('note')">
+                    <button class="btn btn-primary" type="submit" ><i class="fa fa-pencil"></i></button>
+                  </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+-->

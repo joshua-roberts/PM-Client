@@ -1,0 +1,24 @@
+<div class="logo">
+    <a href="/applications/medical" class="simple-text">
+        <div class="logo-img">
+            <img src="/assets/img/angular2-logo-red.png"/>
+        </div>
+        PM Health
+    </a>
+</div>
+<div class="sidebar-wrapper">
+    <ul class="nav">
+        <li routerLinkActive="active" *ngFor="let link of links" class="nav-item {{isActive(link)}}">
+            <a class="nav-link" [routerLink]="toRouterLink(link)">
+                <i class="material-icons">{{getIcon(link)}}</i>
+                <p>{{link}}</p>
+            </a>
+        </li>
+        <li class="nav-item active-pro">
+            <a class="nav-link" routerLink="/home">
+                <i class="material-icons">exit_to_app</i>
+                <p>Exit</p>
+            </a>
+        </li>
+    </ul>
+</div>

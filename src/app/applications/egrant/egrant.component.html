@@ -1,0 +1,32 @@
+<div class="main-content" style="padding: 10% 20%;">
+    <div class="card card-nav-tabs">
+        <div class="card-header card-header-info">
+            <h1>E-Grant</h1>
+        </div>
+        <div class="card-body">
+            <form (submit)="send()" *ngIf="this.model">
+                <div class="form-group has-info" *ngIf="model.sender">
+                    <label>Sender</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" name="sender" [(ngModel)]="model.sender.name" [disabled]="true"/>
+                    </div>
+                </div>
+
+                <div class="form-group has-info">
+                    <label>Recipient</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" name="recipient" [(ngModel)]="model.recipient"/>
+                    </div>
+                </div>
+
+                <div class="form-group has-info" *ngIf="model.attachment">
+                    <label>Attachment</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" name="attachment" [(ngModel)]="model.attachment.name" [disabled]="true"/>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-info">send</button>
+            </form>
+        </div>
+    </div>
+</div>

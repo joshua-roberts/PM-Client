@@ -1,0 +1,80 @@
+<div>
+  <div class="container">
+    <!--welcome message and search bar-->
+    <div class="row top-buffer align-items-center">
+      <div class="col-lg-10">
+        <h1 class="display-4" *ngIf="currentUser">
+          Welcome to the Policy Machine, {{currentUser}}!
+        </h1>
+      </div>
+      <div class="col-lg-2">
+        <a class="btn btn-primary col-lg-12" href="/login">
+          <i class="material-icons">exit_to_app</i> Log Out
+        </a>
+      </div>
+    </div>
+
+    <!--applications-->
+    <div class="row sep-buffer">
+      <div class="col-12">
+        <h3>
+          Applications
+        </h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4" routerLink="/dashboard" style="cursor: pointer">
+        <div class="card card-stats">
+          <div class="card-header card-header-info card-header-icon" style="text-align: left">
+            <div class="card-icon">
+              <i class="material-icons">email</i>
+            </div>
+            <h3 class="card-title">E-Grant</h3>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons text-danger">info</i> Not yet implemented
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4" routerLink="/applications/medical" style="cursor: pointer">
+        <div class="card card-stats">
+          <div class="card-header card-header-danger card-header-icon" style="text-align: left">
+            <div class="card-icon">
+              <i class="material-icons">local_hospital</i>
+            </div>
+            <h3 class="card-title">Medical Records</h3>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons text-info">info</i> Medical Records Application
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4" style="cursor: pointer">
+        <div class="card card-stats">
+          <div class="card-header card-header-success card-header-icon" style="text-align: left">
+            <div class="card-icon">
+              <i class="material-icons">view_headline</i>
+            </div>
+            <h3 class="card-title">Employee Records</h3>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons text-danger">info</i> Not yet implemented
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row sep-buffer">
+      <div class="col-12">
+        <h3>
+          Files
+        </h3>
+      </div>
+    </div>
+  </div>
+</div>

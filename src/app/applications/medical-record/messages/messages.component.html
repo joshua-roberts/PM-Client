@@ -1,0 +1,36 @@
+<div class="wrapper">
+    <div class="sidebar" data-color="danger" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+        <app-sidebar [messagesActive]="true"></app-sidebar>
+        <div class="sidebar-background" style="background-image: url(../assets/img/sidebar-4.jpg)"></div>
+    </div>
+    <div class="main-panel">
+        <div class="main-content">
+            <div class="container-fluid">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!--
+<div class="page" style="padding: 5px 5px; overflow: hidden">
+  <div class="col-lg-6" style="text-align: left">
+    <h1>Messages</h1>
+    <h3>Requests</h3>
+    <div class="row" *ngFor="let req of requests" style="padding: 5px">
+      <span class="col-lg-4">{{getRequesterProperty(req)}}</span>
+      <button class="col-lg-2 btn btn-primary" (click)="accept(req)"><i class="fa fa-ch"></i>Accept</button>
+      <button class="col-lg-2 btn btn-danger" ><i class="fa fa-ch"></i>Decline</button>
+    </div>
+    <h3>Accepted Requests</h3>
+    <div class="row" *ngFor="let req of acceptedRequests" style="padding: 5px">
+      <span class="col-lg-4">{{getRequesterProperty(req)}}</span>
+      <button class="col-lg-2 btn btn-danger" (click)="revoke(req)"><i class="fa fa-ch"></i>Revoke</button>
+    </div>
+  </div>
+</div>
+-->
