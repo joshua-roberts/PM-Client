@@ -1,0 +1,63 @@
+<i class="fa fa-align-justify mr-3 ml-3 menubtn" [style.color]="clr" (click)="openGo(sideNav)"></i>
+
+<div class="navbar-side bg-light" #sideNav>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 align-content-center">
+                <i class="fa fa-align-justify mt-3 menubtn" [style.color]="'black'"
+                   (click)="closeGo(sideNav)"></i>
+                <a class="float-right mt-3" style="font-size: 15px;"
+                   href="https://csrc.nist.gov/Projects/Policy-Machine">
+                    <b>PM PAGE</b>
+                    <i class="fa fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-12">
+                <h4 style="color: black">
+                    Applications
+                </h4>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <app-app-box [name]="'Home'" [symbol]="'home'" routerLink="/home">
+                <i class="material-icons text-info">info</i> Go back to the homepage
+            </app-app-box>
+            <app-app-box [color]="'#00bcd4'" [name]="'E-Grant'" [symbol]="'email'" routerLink="/applications/egrant">
+                <i class="material-icons text-info">info</i> Email/Grant Application
+            </app-app-box>
+            <app-app-box [color]="'#f44336'" [name]="'Medical Records'" [symbol]="'local_hospital'"
+                         routerLink="/applications/medical">
+                <i class="material-icons text-info">info</i> Medical Records Application
+            </app-app-box>
+            <app-app-box [color]="'#4caf50'" [name]="'Employee Records'" [symbol]="'view_headline'">
+                <i class="material-icons text-danger">info</i> Not yet implemented
+            </app-app-box>
+            <app-app-box [color]="'#4fa3db'" [symbol]="'list'" [name]="'POS'" routerLink="/applications/pos">
+                <i class="material-icons text-info">info</i> Personalized Object System
+            </app-app-box>
+            <app-app-box [name]="'Words'" [symbol]="'insert_drive_file'" routerLink="/applications/word">
+                <i class="material-icons text-info">info</i> Text Editor
+            </app-app-box>
+        </div>
+
+        <hr>
+        <div class="row">
+            <div class="col-12">
+                <h4 style="color: black">
+                    Account
+                </h4>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <app-app-box class="app-buffer" [symbol]="'settings'" [name]="'Settings'" (click)="openSettings()">
+                <i class="material-icons text-info">info</i> User Settings
+            </app-app-box>
+            <app-app-box class="app-buffer" [symbol]="'exit_to_app'" [name]="'Logout'" routerLink="/login">
+                <i class="material-icons text-info">info</i> Logout of application
+            </app-app-box>
+        </div>
+    </div>
+</div>

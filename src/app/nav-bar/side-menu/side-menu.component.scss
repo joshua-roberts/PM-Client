@@ -1,0 +1,47 @@
+.navbar-side {
+  height: 100%;
+  width: 35%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 0;
+  list-style: none;
+  box-shadow: 0px 0px 5px grey;
+  overflow-x: scroll;
+  z-index: 1000;
+
+  -webkit-transform: translateX(-105%);
+  -ms-transform: translateX(-105%);
+  transform: translateX(-105%);
+  -webkit-transition: 300ms ease;
+  transition: 300ms ease;
+}
+
+.app-buffer {
+  margin: 10px;
+}
+
+.reveal {
+  -webkit-transform: translateX(0%);
+  -ms-transform: translateX(0%);
+  transform: translateX(0%);
+  -webkit-transition: 300ms ease;
+  transition: 300ms ease;
+}
+
+
+.navbar-side-item {
+  padding: 1.5rem 0;
+  margin: 0;
+  border-bottom: 2px solid #ccc;
+  height: 5rem;
+}
+
+.side-link {
+  padding-left: 2rem;
+}
+
+.menubtn {
+  font-size: 20px;
+  cursor: pointer;
+}

@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <div class="row header justify-content-lg-start">
+    <div class="mt-3 col-4 text-left">
+      <app-side-menu [clr]="'black'"></app-side-menu>
+    </div>
+    <div class="col-4 text-center">
+      <p class="h2 m-0 p-0" style="font-family: Courier">POS</p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row top-buffer">
+    <div class="col-4 border-right">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 scroller">
+            <app-list (eleClicked)="onDocClick($event)" [level]="0" [root]="pos[0]"></app-list>
+          </div>
+        </div>
+        <div class="row top-buffer">
+          <div class="col-12">
+            <button class="btn btn-primary" style="width: 48%" (click)="addFolder()">New Folder</button>
+            <button class="btn btn-primary" style="width: 48%" (click)="addDocument()">New Document</button>
+          </div>
+        </div>
+      </div>
+      <!--<app-list (eleClicked)="onDocClick($event)" [level]="0" [root]="pos[0]"></app-list>-->
+      <!--<footer class="footer">-->
+      <!--hi i'm a footer-->
+      <!--</footer>-->
+    </div>
+    <div class="col-8 border-left">
+      <h1>{{selectedDoc.title}}</h1>
+      <p>id: {{selectedDoc.id}}</p>
+      <p>label: {{selectedDoc.label}}</p>
+      <p># of children: {{selectedDoc.children.length}}</p>
+      <p>property id: {{selectedDoc.propertyId}}</p>
+    </div>
+  </div>
+</div>

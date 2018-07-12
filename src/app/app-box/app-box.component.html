@@ -1,0 +1,26 @@
+<!--<div class="card card-stats box">-->
+  <!--<div class="card-header card-header-icon">-->
+    <!--<div class="card-icon" [style.background-color]="color">-->
+      <!--<b>{{symbol}}</b>-->
+    <!--</div>-->
+    <!--<h3 class="card-title">{{name}}</h3>-->
+  <!--</div>-->
+  <!--<div class="card-body" *ngIf="description">-->
+    <!--<p class="text-muted">{{description}}</p>-->
+  <!--</div>-->
+<!--</div>-->
+
+
+<div class="card card-stats box">
+  <div class="card-header card-header-icon" style="text-align: left">
+    <div class="card-icon" [style.background-color]="color">
+      <i class="material-icons">{{symbol}}</i>
+    </div>
+    <h3 class="card-title">{{name}}</h3>
+  </div>
+  <div class="card-footer">
+    <div class="stats">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

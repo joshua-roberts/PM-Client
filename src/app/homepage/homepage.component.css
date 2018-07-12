@@ -9,7 +9,6 @@
 .app-buffer {
     margin-right:20px;
     margin-left:20px;
-    cursor: pointer;
     padding: auto 0;
 }
 .app-buffer:hover {

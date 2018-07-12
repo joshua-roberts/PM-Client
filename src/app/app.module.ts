@@ -33,7 +33,13 @@ import {
 import {AlertService} from 'app/services/alert.service';
 import {AlertComponent} from './alert/alert.component';
 import { EgrantComponent } from './applications/egrant/egrant.component';
-import {SidebarComponent} from "./applications/medical-record/sidebar/sidebar.component";
+import {SidebarComponent} from './applications/medical-record/sidebar/sidebar.component';
+import { AppBoxComponent } from './app-box/app-box.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { PosComponent } from './applications/pos/pos.component';
+import { ListComponent } from './applications/pos/list/list.component';
+import { SideMenuComponent } from './nav-bar/side-menu/side-menu.component';
+import { WordComponent } from './applications/word/word.component';
 
 @NgModule({
     imports: [
@@ -68,7 +74,13 @@ import {SidebarComponent} from "./applications/medical-record/sidebar/sidebar.co
         DoctorsComponent,
         AlertComponent,
         EgrantComponent,
-        SidebarComponent
+        SidebarComponent,
+        AppBoxComponent,
+        NavBarComponent,
+        PosComponent,
+        ListComponent,
+        SideMenuComponent,
+        WordComponent
     ],
     providers: [
         PmHealthService,

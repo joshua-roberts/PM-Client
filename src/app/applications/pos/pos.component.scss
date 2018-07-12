@@ -1,0 +1,24 @@
+.top-buffer {
+  margin-top:20px;
+}
+
+.sep-buffer {
+  margin-top:40px;
+}
+
+.app-buffer {
+  margin-right:20px;
+  margin-left:20px;
+}
+
+.scroller {
+  height: 80vh;
+  overflow-y: scroll;
+  width: 100%;
+}
+
+.header {
+  height: 10vh;
+  background-color: white;
+  box-shadow: 0px 0px 5px darkgrey;
+}

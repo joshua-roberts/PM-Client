@@ -1,8 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {PmHealthService} from '../../services/pmhealth.service';
-import {PepService} from '../../services/pep.service';
-import {AlertService} from '../../services/alert.service';
 
 @Component({
     selector: 'app-egrant',
@@ -10,42 +6,85 @@ import {AlertService} from '../../services/alert.service';
     styleUrls: ['./egrant.component.scss']
 })
 export class EgrantComponent implements OnInit {
-    attachments = [];
-    model: any = {
-        'attachment': {}
-    };
+    selectedEmail = -1;
+    emails = [
+        {
+            'title': 'Fixed the internet',
+            'content': 'took out the lag. the world applauds'
+        },
+        {
+            'title': 'Lunch?',
+            'content': 'hows life, i sit near you, and you look hungry. you should eat food. with me, preferably.'
+        },
+        {
+            'title': 'New Song',
+            'content': 'Check out this new song I made.'
+        },
+        {
+            'title': 'Fixed the internet',
+            'content': 'took out the lag. the world applauds'
+        },
+        {
+            'title': 'Lunch?',
+            'content': 'hows life, i sit near you, and you look hungry. you should eat food. with me, preferably.'
+        },
+        {
+            'title': 'New Song',
+            'content': 'Check out this new song I made.'
+        },
+        {
+            'title': 'Fixed the internet',
+            'content': 'took out the lag. the world applauds'
+        },
+        {
+            'title': 'Lunch?',
+            'content': 'hows life, i sit near you, and you look hungry. you should eat food. with me, preferably.'
+        },
+        {
+            'title': 'New Song',
+            'content': 'Check out this new song I made.'
+        }
+    ];
 
-    constructor(private route: ActivatedRoute,
-                private pmhealth: PmHealthService,
-                private pepService: PepService,
-                private alertService: AlertService,
-                private router: Router) { }
+    constructor() { }
 
     ngOnInit() {
-        this.route.queryParams
-            .subscribe(
-                (qParams) => {
-                    const key = qParams['key'];
-                    const value = qParams['value'];
-                    console.log(qParams);
-                    this.pepService.getNodeByProp(key, value)
-                        .then(response => {
-                            console.log(response);
-                            this.model.attachment = response;
-                            console.log(this.model.attachment);
-
-                            this.pepService.getSessionUserNode()
-                                .then(response1 => {
-                                    this.model.sender = response1;
-                                    console.log(response1);
-                                })
-                        })
-
-                });
     }
 
-    send() {
-        console.log(this.model);
+    onEmailClick (index) {
+        if (index === this.selectedEmail) {
+            this.selectedEmail = -1;
+        } else {
+            this.selectedEmail = index;
+        }
     }
 
+    newEmail() {
+        alert('new email');
+    }
+
+    sendMessage () {
+        $('#newEmailModal').modal('toggle');
+        alert('message sent');
+    }
+
+    draftMessage () {
+        $('#newEmailModal').modal('toggle');
+        alert('message drafted');
+    }
+
+    confirmAttachments () {
+        $('#attachModal').modal('toggle');
+        alert('attachments added');
+    }
+
+    // onDocClick(name) {
+    //     const selection: string = name[1].srcElement.innerText.split('\n')[0];
+    //     this.pos.forEach((ele) => {
+    //         let tit: string = ele.title;
+    //         if (tit.trim() === selection.trim()) {
+    //             this.selectedDoc = ele;
+    //         }
+    //     });
+    // }
 }

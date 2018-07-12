@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 55px; border-radius: 0px !important;">
+    <app-side-menu [clr]="'white'"></app-side-menu>
+    <a class="navbar-brand" routerLink="/home">Policy Machine</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" style="">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <!--<li class="nav-item" [ngClass]="homepageActive ? 'active' : ''">-->
+            <!--<a class="nav-link" routerLink="/homepage" routerLinkActive="active">Homepage</a>-->
+            <!--</li>-->
+            <li class="nav-item" [ngClass]="egrantActive ? 'active' : ''">
+                <a class="nav-link" routerLink="/applications/egrant" routerLinkActive="active">E-Grant</a>
+            </li>
+            <li class="nav-item" [ngClass]="medAppActive ? 'active' : ''">
+                <a class="nav-link" routerLink="/applications/medical" routerLinkActive="active">Medical Records</a>
+            </li>
+            <li class="nav-item" [ngClass]="empActive ? 'active' : ''">
+                <a class="nav-link" routerLink="/applications/employee" routerLinkActive="active">Employee Records</a>
+            </li>
+            <li class="nav-item" [ngClass]="posActive ? 'active' : ''">
+                <a class="nav-link" routerLink="/applications/pos" routerLinkActive="active">POS</a>
+            </li>
+            <li class="nav-item" [ngClass]="wordActive ? 'active' : ''">
+                <a class="nav-link" routerLink="/applications/word" routerLinkActive="active">Word</a>
+            </li>
+            <!--<li class="nav-item" [ngClass]="usersActive ? 'active' : ''">-->
+                <!--<a class="nav-link" routerLink="/users" routerLinkActive="active">Users</a>-->
+            <!--</li>-->
+            <!--<li class="nav-item" [ngClass]="assocsActive ? 'active' : ''">-->
+                <!--<a class="nav-link" routerLink="/associations" routerLinkActive="active">Associations</a>-->
+            <!--</li>-->
+            <!--<li class="nav-item" [ngClass]="prohsActive ? 'active' : ''">-->
+                <!--<a class="nav-link" routerLink="/prohibitions" routerLinkActive="active">Prohibitions</a>-->
+            <!--</li>-->
+            <!--<li class="nav-item" [ngClass]="analyticsActive ? 'active' : ''">-->
+                <!--<a class="nav-link" routerLink="/analytics" routerLinkActive="active">Analytics</a>-->
+            <!--</li>-->
+        </ul>
+        <div class="form-inline my-2 my-lg-0">
+            <ul class="my-2 my-lg-0">
+                <li class="nav-link">
+                    <a style="color: white" href="../login"><i class="material-icons">exit_to_app</i>Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
