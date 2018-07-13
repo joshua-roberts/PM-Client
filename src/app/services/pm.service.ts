@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Headers, URLSearchParams} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import { PmNode } from '../model/PmNode';
+import {PmNode} from '../model/PmNode';
 import {AlertService} from './alert.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
@@ -12,7 +12,7 @@ export class PmService {
 
     private httpOptions = {
         headers: new HttpHeaders({
-            'Content-Type':  'application/json',
+            'Content-Type': 'application/json',
             'Authorization': 'my-auth-token'
         })
     };
@@ -30,7 +30,8 @@ export class PmService {
     public SUCCESS_CODE = 9000;
 
     constructor(private http: HttpClient,
-                private alertService: AlertService) { }
+                private alertService: AlertService) {
+    }
 
 
     get(url: string, params: URLSearchParams) {
@@ -110,6 +111,7 @@ export class PmService {
         return this.get(`${this.configUrl}/graph/objects`, null)
             .then((response) => response['entity']);
     }
+
     createAssociation(uaId: number, targetId: number, ops: string[]) {
         const data = {
             'uaId': uaId,
@@ -183,11 +185,11 @@ export class PmService {
     }
 
     createNodeWProps(name: string, type: string, props: string[]) {
-        let propsArr: {key: string, value: string}[] = [];
-        for (let prop of props){
+        let propsArr: { key: string, value: string }[] = [];
+        for (let prop of props) {
             let propArr = prop.split('=');
             if (propArr.length === 2) {
-                propsArr.push({'key': propArr[0] , 'value': propArr[1]});
+                propsArr.push({'key': propArr[0], 'value': propArr[1]});
             }
         }
         const data = {
@@ -240,6 +242,19 @@ export class PmService {
         params.set('type', type);
         params.set('key', key);
         params.set('value', value);
+        // console.log(params);
+        return this.get(this.nodesUrl, params)
+            .then((response) => response['entity']);
+    }
+
+    getNodeContent(namespace: string, name: string, type: string, key: string, value: string) {
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('namespace', namespace);
+        params.set('name', name);
+        params.set('type', type);
+        params.set('key', key);
+        params.set('value', value);
+        params.set('content', 'true');
         console.log(params);
         return this.get(this.nodesUrl, params)
             .then((response) => response['entity']);
@@ -248,15 +263,19 @@ export class PmService {
     getPolicyClasses() {
         return this.getNodes(null, null, 'PC', null, null);
     }
+
     getObjectAttributes() {
         return this.getNodes(null, null, 'OA', null, null);
     }
+
     getObjects() {
         return this.getNodes(null, null, 'O', null, null);
     }
+
     getUserAttributes() {
         return this.getNodes(null, null, 'UA', null, null);
     }
+
     getUsers() {
         return this.getNodes(null, null, 'U', null, null);
     }
@@ -266,7 +285,7 @@ export class PmService {
             .then((response) => response['entity']);
     }
 
-    public getNode(id: number) {
+    getNode(id: number) {
         const url = `${this.nodesUrl}/${id}`;
         return this.get(url, null)
             .then((response) => response['entity']);

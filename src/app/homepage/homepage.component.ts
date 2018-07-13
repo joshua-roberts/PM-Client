@@ -1,36 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-homepage',
-  templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.css']
+    selector: 'app-homepage',
+    templateUrl: './homepage.component.html',
+    styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
-  currentUser: any = {};
+    currentUser: any = {};
 
-  constructor() { }
+    constructor() {
+    }
 
-  ngOnInit() {
-    this.currentUser = this.getSessionUser();
-    console.log(this.currentUser);
-  }
+    ngOnInit() {
+        this.currentUser = this.getSessionUser();
 
-  openEGrant () {
-    // alert('open E-grant');
-  }
+        console.log(this.currentUser);
+    }
 
-  openEmployeeRecords () {
-    // alert('open Employee Records');
-  }
+    openEGrant() {
+        // alert('open E-grant');
+    }
 
-  openMedicalRecords () {
-    // alert('open Medical Records');
-  }
-  openEmail () {
-    // alert('open E-Mail');
-  }
+    openEmployeeRecords() {
+        // alert('open Employee Records');
+    }
 
-  private getSessionUser() {
-    return localStorage.getItem('SESSION_USER');
-  }
+    openMedicalRecords() {
+        // alert('open Medical Records');
+    }
+
+    openEmail() {
+        // alert('open E-Mail');
+    }
+
+    private getSessionUser() {
+        return localStorage.getItem('SESSION_USER');
+    }
 }

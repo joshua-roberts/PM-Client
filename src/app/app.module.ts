@@ -40,6 +40,7 @@ import { PosComponent } from './applications/pos/pos.component';
 import { ListComponent } from './applications/pos/list/list.component';
 import { SideMenuComponent } from './nav-bar/side-menu/side-menu.component';
 import { WordComponent } from './applications/word/word.component';
+import {PmService} from './services/pm.service';
 
 @NgModule({
     imports: [
@@ -85,7 +86,8 @@ import { WordComponent } from './applications/word/word.component';
     providers: [
         PmHealthService,
         PepService,
-        AlertService
+        AlertService,
+        PmService
     ],
     bootstrap: [AppComponent]
 })
