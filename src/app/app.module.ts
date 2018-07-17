@@ -41,6 +41,8 @@ import { ListComponent } from './applications/pos/list/list.component';
 import { SideMenuComponent } from './nav-bar/side-menu/side-menu.component';
 import { WordComponent } from './applications/word/word.component';
 import {PmService} from './services/pm.service';
+import { PoshomeComponent } from './applications/pos/poshome/poshome.component';
+import { TranslatorDemoComponent } from './applications/translator-demo/translator-demo.component';
 
 @NgModule({
     imports: [
@@ -81,7 +83,9 @@ import {PmService} from './services/pm.service';
         PosComponent,
         ListComponent,
         SideMenuComponent,
-        WordComponent
+        WordComponent,
+        PoshomeComponent,
+        TranslatorDemoComponent
     ],
     providers: [
         PmHealthService,

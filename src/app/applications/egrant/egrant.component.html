@@ -144,17 +144,22 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12 scroller">
-                            <p>where the pos should be</p>
-                            <!--<app-list [level]="0"></app-list>-->
-                            <!--<app-list (eleClicked)="onDocClick($event)" [level]="0" [root]="pos[0]"></app-list>-->
+                            <app-poshome (selectedDoc)="onDocAttach($event)"></app-poshome>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-success" (click)="confirmAttachments()">Attach</button>
+                <div class="justify-content-center">
+                    <div>
+                        <ul>
+                            <li *ngFor="let doc of tempAttachments">{{doc.type}}: {{doc.name}}</li>
+                        </ul>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-success" (click)="confirmAttachments()">Attach</button>
+                    </div>
                 </div>
             </div>
         </div>

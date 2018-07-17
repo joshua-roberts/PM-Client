@@ -1,25 +1,32 @@
-<div *ngIf="!isObject(root.label)">
-  <a class="folder" data-toggle="collapse" [href]="'#collapse' + root.title">
-    <i class="fa fa-user" *ngIf="level === 0"> {{root.title}}</i>
-    <i class="fa fa-folder-o" *ngIf="level !== 0"> {{root.title}}</i>
-  </a>
-</div>
+<div>
+    <!--<div *ngIf="!isObject(root.type)">-->
+    <!--<a class="folder" data-toggle="collapse" [href]="'#collapse' + root.id">-->
+    <!--<a class="folder" data-toggle="collapse">-->
+    <!--<i class="fa fa-folder-o" (click)="onClick(root)"> {{root.name}}</i>-->
+    <!--</a>-->
+    <!--</div>-->
 
-<div *ngIf="isObject(root.label)">
-  <a class="folder">
-    <i class="fa fa-user" *ngIf="level === 0"> {{root.title}}</i>
-    <i class="fa fa-file-text" *ngIf="level !== 0"> {{root.title}}</i>
-  </a>
-</div>
+    <!--<div *ngIf="isObject(root.type)">-->
+    <!--<a class="folder">-->
+    <!--<i class="fa fa-file-text" (click)="onClick(root)"> {{root.name}}</i>-->
+    <!--</a>-->
+    <!--</div>-->
 
-<div class="collapse" [id]="'collapse' + root.title" *ngIf="root.children.length">
-  <ul class="list-group">
-    <li class="list-group-item lst-item"
-        (dblclick)="onDblClick(child, $event)"
-        [ngStyle]="{'background-color': colors[level]}"
-        [class.selected] = "child === selectedChild"
-        *ngFor="let child of root.children">
-      <app-list [root]="child" [level]="level + 1"></app-list>
-    </li>
-  </ul>
+    <a class="folder" (click)="onClick(root)" (dblclick)="onDblClick(root)">
+        <b style="font-family: Courier" *ngIf="root.type !== 'O'">{{(collapsed) ? ' + ' : ' -'}}</b>
+        <b>{{root.type}}</b> {{root.name}}
+        <b style="font-family: Courier" *ngIf="root.type !== 'O'">{{(childrenGened) ? ' o ' : ' x '}}</b>
+
+    </a>
+
+    <div class="collapse" [id]="'collapse' + root.id">
+        <ul class="list-group" *ngIf="root.children.length">
+            <li class="list-group-item lst-item"
+                *ngFor="let child of root.children"
+                [ngStyle]="{'background-color': colors[level]}">
+                <app-list (eleClicked)="onChildClick($event)" (eleDblClicked)="onDblClick($event)" [root]="child"
+                          [level]="level + 1"></app-list>
+            </li>
+        </ul>
+    </div>
 </div>

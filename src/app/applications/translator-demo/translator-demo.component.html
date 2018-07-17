@@ -1,0 +1,67 @@
+<div class="container-fluid">
+  <div class="row header justify-content-lg-start">
+    <div class="mt-3 col-4 text-left">
+      <app-side-menu [clr]="'black'"></app-side-menu>
+    </div>
+    <div class="col-4 text-center">
+      <p class="h2 m-0 p-0" style="font-family: Courier">Translator</p>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Host</span>
+        </div>
+        <input type="text" class="form-control" [value]="'35.236.237.191'" #host>
+
+        <div class="input-group-prepend">
+          <span class="input-group-text">Port</span>
+        </div>
+        <input type="number" class="form-control" [value]="3306" #port>
+
+        <div class="input-group-prepend">
+          <span class="input-group-text">Username</span>
+        </div>
+        <input type="text" class="form-control" [value]="'root'" #username>
+
+        <div class="input-group-prepend">
+          <span class="input-group-text">Password</span>
+        </div>
+        <input type="password" class="form-control" [value]="'root'" #password>
+
+        <div class="input-group-prepend">
+          <span class="input-group-text">Database</span>
+        </div>
+        <input type="text" class="form-control" [value]="'pm_health'" #database>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="input-group" style="height: 30vh">
+        <textarea class="form-control textarea p-3" #sqlIn></textarea>
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <button class="btn btn-info" style="height: 100%"
+                    (click)="onTranslate(sqlIn, host.value, port.value, username.value, password.value, database.value, sqlOut, response)">
+              <i class="material-icons">compare_arrows</i>
+            </button>
+          </span>
+        </div>
+        <textarea class="form-control textarea p-3" #sqlOut></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-12">
+      <p>Results:</p>
+      <div class="input-group" style="height: 40vh">
+        <textarea class="form-control textarea p-3" [disabled]="true" #response></textarea>
+      </div>
+    </div>
+  </div>
+</div>

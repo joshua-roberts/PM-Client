@@ -16,6 +16,7 @@ import {PatientDetailComponent} from './applications/medical-record/patient-deta
 import {EgrantComponent} from './applications/egrant/egrant.component';
 import {PosComponent} from './applications/pos/pos.component';
 import {WordComponent} from './applications/word/word.component';
+import {TranslatorDemoComponent} from './applications/translator-demo/translator-demo.component';
 
 const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -31,7 +32,8 @@ const routes: Routes = [
     {path: 'applications/medical/patient-detail/:patientId', component: PatientDetailComponent},
     {path: 'applications/egrant', component: EgrantComponent},
     {path: 'applications/pos', component: PosComponent},
-    {path: 'applications/word', component: WordComponent}
+    {path: 'applications/word', component: WordComponent},
+    {path: 'applications/translator', component: TranslatorDemoComponent}
 
 ];
 

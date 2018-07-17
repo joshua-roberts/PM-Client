@@ -1,0 +1,11 @@
+<div *ngIf="pos">
+    <i class="fa fa-user"> {{sessionUser}}</i>
+    <ul class="list-group">
+        <li class="list-group-item lst-item"
+            *ngFor="let po of pos"
+            style="background-color: white">
+            <app-list (eleClicked)="onDocClick($event)" (eleDblClicked)="onDocDblClick($event)" [level]="0"
+                      [root]="po"></app-list>
+        </li>
+    </ul>
+</div>

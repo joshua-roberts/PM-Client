@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./egrant.component.scss']
 })
 export class EgrantComponent implements OnInit {
+    tempAttachments = [];
     selectedEmail = -1;
     emails = [
         {
@@ -71,6 +72,12 @@ export class EgrantComponent implements OnInit {
     draftMessage () {
         $('#newEmailModal').modal('toggle');
         alert('message drafted');
+    }
+
+    onDocAttach (doc) {
+        if (doc.type !== 'PC' && doc.type !== 'C') {
+            this.tempAttachments.push(doc);
+        }
     }
 
     confirmAttachments () {

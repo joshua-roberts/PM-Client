@@ -1,0 +1,24 @@
+.header {
+  height: 7vh;
+  background-color: white;
+  box-shadow: 0px 0px 5px darkgrey;
+}
+
+.textarea {
+  height: 100%;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px lightgray;
+}
+
+.translateBtn {
+  z-index: 2;
+  background-color: lightgray;
+  transition: 300ms ease;
+}
+
+.translateBtn:hover {
+  box-shadow: 3px 3px 10px lightgrey;
+  transform: translateX(-3px) translateY(-3px);
+  transition: 300ms ease;
+}

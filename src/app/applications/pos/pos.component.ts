@@ -1,50 +1,34 @@
 import {Component, OnInit} from '@angular/core';
-import * as data from './pos.json';
+import {PmService} from '../../services/pm.service';
 
 @Component({
     selector: 'app-pos',
     templateUrl: './pos.component.html',
     styleUrls: ['./pos.component.scss']
 })
-
+// TODO: finsih add folder and file funcitonalty. Fix issue about collapsing after loading
 export class PosComponent implements OnInit {
-    pos;
+    pos = null;
     selectedDoc;
+    sessionUser;
 
-    constructor() {
+    constructor(private pm: PmService) {
+        this.pm.getPolicyClasses().then((pcs) => {
+            if (pcs) {
+                this.pos = pcs;
+                this.pos.forEach ((po) => {
+                    po.children = [];
+                });
+                this.selectedDoc = this.pos[0];
+                // console.log(this.pos);
+            } else {
+                alert('get PC\'s failed');
+            }
+        });
+        this.sessionUser = localStorage.getItem('SESSION_USER');
     }
 
     ngOnInit() {
-        this.pos = this.convertData(data);
-        this.selectedDoc = this.pos[0];
-    }
-
-    convertData(d) {
-        let nodes = [], links = [];
-        d.results[0].data.forEach(function (row) {
-            row.graph.nodes.forEach(function (n) {
-                if (!nodes[n.id]) {
-                    nodes[n.id] = {id: n.id, propertyId: n.properties.id, label: n.labels[0], title: n.properties.name, children: null};
-                }
-            });
-            links = links.concat(row.graph.relationships.map(function (r) {
-                return {start: r.startNode, end: r.endNode, type: r.type};
-            }));
-        });
-
-        nodes.forEach(function (n) {
-            let childs = [];
-            links.forEach(function (d) {
-                if (d.start === n.id) {
-                    if (nodes[d.end]) {
-                        childs.push(nodes[d.end]);
-                    }
-                }
-            });
-            n.children = childs;
-        });
-
-        return nodes;
     }
 
     addFolder () {
@@ -67,15 +51,5 @@ export class PosComponent implements OnInit {
             children: []
         });
         console.log(this.pos);
-    }
-
-    onDocClick(name) {
-        const selection: string = name[1].srcElement.innerText.split('\n')[0];
-        this.pos.forEach((ele) => {
-            const tit: string = ele.title;
-            if (tit.trim() === selection.trim()) {
-                this.selectedDoc = ele;
-            }
-        });
     }
 }

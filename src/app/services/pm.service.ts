@@ -26,6 +26,7 @@ export class PmService {
     private proUrl = 'http://localhost:8080/pm/api/prohibitions';
     private evrUrl = 'http://localhost:8080/pm/api/evr';
     private sessionUrl = 'http://localhost:8080/pm/api/sessions';
+    private translateUrl = 'http://localhost:8080/pm/api/translate';
 
     public SUCCESS_CODE = 9000;
 
@@ -244,6 +245,33 @@ export class PmService {
         params.set('value', value);
         // console.log(params);
         return this.get(this.nodesUrl, params)
+            .then((response) => response['entity']);
+    }
+
+    // private String sql;
+    // private String username;
+    // private String process;
+    // private String host;
+    // private int    port;
+    // private String dbUsername;
+    // private String dbPassword;
+    // private String database;
+
+    translate(sql: string, host: string, port: number,
+              dbUsername: string, dbPaswword: string, database: string) {
+        const data = {
+            'sql': sql,
+            'username': localStorage.getItem('SESSION_USER'),
+            'process': null,
+            'host': host,
+            'port': port,
+            'dbUsername': dbUsername,
+            'dbPassword': dbPaswword,
+            'database': database
+        }
+
+        // console.log(params);
+        return this.post(this.translateUrl, data)
             .then((response) => response['entity']);
     }
 

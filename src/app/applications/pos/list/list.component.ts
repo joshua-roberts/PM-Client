@@ -3,8 +3,7 @@ import {
     EventEmitter,
     Input,
     OnInit,
-    Output,
-    Renderer2
+    Output
 } from '@angular/core';
 
 @Component({
@@ -16,23 +15,38 @@ export class ListComponent implements OnInit {
     @Input() root;
     @Input() level;
     @Output() eleClicked = new EventEmitter<any>();
-    selectedChild;
+    @Output() eleDblClicked = new EventEmitter<any>();
+    collapsed = true;
     colors;
+    childrenGened = false;
 
-    constructor(private render: Renderer2) { }
+    constructor() { }
 
     ngOnInit() {
-        this.selectedChild = null;
-        // this.colors = ['#e5f1ff', '#d3e7ff', '#bad9ff', '#a3ccff', '#8ec0ff', '#7ab5ff', '#5ba4ff', '#3f94ff', '#2887ff', '#167dff'];
-        this.colors = ['#d3e7ff', '#bad9ff', '#a3ccff', '#8ec0ff', '#7ab5ff', '#5ba4ff', '#3f94ff', '#2887ff', '#167dff'];
+        // console.log(this.root);
+        this.colors = ['#e5f1ff', '#d3e7ff', '#bad9ff', '#a3ccff', '#8ec0ff', '#7ab5ff', '#5ba4ff', '#3f94ff', '#2887ff', '#167dff'];
+        // this.colors = ['#d3e7ff', '#bad9ff', '#a3ccff', '#8ec0ff', '#7ab5ff', '#5ba4ff', '#3f94ff', '#2887ff', '#167dff'];
     }
 
-    onDblClick (childRoot, event) {
-        this.eleClicked.emit([childRoot, event]);
-        this.selectedChild = childRoot[0];
+    onDblClick (root) {
+        this.eleDblClicked.emit(root);
     }
 
-    isObject (type: string) {
-        return (type.toLowerCase() === 'o');
+    onClick (root) {
+        if (!this.childrenGened) {
+            this.eleClicked.emit(root);
+            this.childrenGened = true;
+        }
+        this.toggleCollapse();
+    }
+
+    onChildClick (root) {
+        this.eleClicked.emit(root);
+    }
+
+    toggleCollapse() {
+        const selector = '#collapse' + this.root.id;
+        $(selector).collapse('toggle');
+        this.collapsed = !this.collapsed;
     }
 }
