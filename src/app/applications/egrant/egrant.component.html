@@ -82,29 +82,37 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
+            <!--private int emailNodeId;-->
+            <!--private String emailBody;-->
+            <!--private String emailSubject;-->
+            <!--private String recipient;-->
+            <!--private String sender;-->
+            <!--private Timestamp timestamp;-->
+            <!--private List<Integer> attachments;-->
             <div class="modal-body">
                 <form>
                     <div class="form-group row">
                         <label for="sender-name" class="col-sm-2 col-form-label">From:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="sender-name" placeholder="from">
+                            <input type="text" class="form-control" id="sender-name" placeholder="from" #sender>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="recipient-name" class="col-sm-2 col-form-label">To:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="recipient-name" placeholder="to">
+                            <input type="text" class="form-control" id="recipient-name" placeholder="to" #recipient>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="subject" class="col-sm-2 col-form-label">Subject</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="subject" placeholder="subject">
+                            <input type="text" class="form-control" id="subject" placeholder="subject" #subject>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="message-text" class="col-sm-2 col-form-label">Message:</label>
-                        <textarea class="ml-3 form-control" id="message-text" style="height: 300px !important;"></textarea>
+                        <textarea class="ml-3 form-control" id="message-text" style="height: 300px !important;" #body></textarea>
                     </div>
                 </form>
             </div>
@@ -119,7 +127,7 @@
                             </div>
                             <div class="btn-group" role="group" style="float: right;">
                                 <button type="button" class="btn btn-danger" (click)="draftMessage()">Draft</button>
-                                <button type="button" class="btn btn-success" (click)="sendMessage()">Send</button>
+                                <button type="button" class="btn btn-success" (click)="sendMessage(sender.value, recipient.value, subject.value, body.value)">Send</button>
                             </div>
                         </div>
                     </div>

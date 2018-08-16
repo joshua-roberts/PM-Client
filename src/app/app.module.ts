@@ -43,6 +43,7 @@ import { WordComponent } from './applications/word/word.component';
 import {PmService} from './services/pm.service';
 import { PoshomeComponent } from './applications/pos/poshome/poshome.component';
 import { TranslatorDemoComponent } from './applications/translator-demo/translator-demo.component';
+import { NlpComponent } from './applications/nlp/nlp.component';
 
 @NgModule({
     imports: [
@@ -85,7 +86,8 @@ import { TranslatorDemoComponent } from './applications/translator-demo/translat
         SideMenuComponent,
         WordComponent,
         PoshomeComponent,
-        TranslatorDemoComponent
+        TranslatorDemoComponent,
+        NlpComponent
     ],
     providers: [
         PmHealthService,

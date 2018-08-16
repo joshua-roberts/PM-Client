@@ -54,6 +54,59 @@ export class PoshomeComponent implements OnInit {
         });
     }
 
+    // {id: 11111, name: "", type: "OA", properties: [], content: null}
+    addFolder (name, parentId) {
+        console.log ('put ' + name + ' in ' + parentId);
+        this.pm.createNodeWPropsAndContent(parentId, name, 'OA', []).then((nodeData) => {
+            if (nodeData) {
+                nodeData.children = [];
+                console.log('assign ' + nodeData.id + ' to ' + parentId);
+                // this.pm.assign(nodeData.id, parentId).then((assignData) => {
+                //     console.log(assignData);
+                //     if (assignData) {
+                        this.pos.forEach ((po) => {
+                            this.recursiveSearchNExec (po, parentId, (ele) => {
+                                ele.children.push(nodeData);
+                            });
+                        })
+                    // } else {
+                    //     this.pm.deleteNode(nodeData.id).then((deleteData) => {
+                    //         if (deleteData) {
+                    //             alert('node assignment unsuccessful, node deleted')
+                    //         } else {
+                    //             alert('node deletion failed')
+                    //         }
+                    //     });
+                    // }
+                // })
+            } else {
+                alert('node creation unsuccessful')
+            }
+        });
+        // this.pos.push({
+        //     children: [],
+        //     content:  null,
+        //     id: 11099,
+        //     name: name,
+        //     properties: [],
+        //     type: 'OA'
+        // });
+        console.log(this.pos);
+    }
+
+    addDocument (name, parentId) {
+        console.log ('put ' + name + ' in ' + parentId);
+        this.pos.push({
+            children: [],
+            content:  null,
+            id: 11099,
+            name: name,
+            properties: [],
+            type: 'O'
+        });
+        console.log(this.pos);
+    }
+
     // Object:
     //  children: [] (0)
     //  id: 1

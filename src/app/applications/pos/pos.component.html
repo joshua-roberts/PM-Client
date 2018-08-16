@@ -15,13 +15,24 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 scroller">
-                        <app-poshome (selectedDoc)="selectedDoc = $event"></app-poshome>
+                        <app-poshome (selectedDoc)="selectedDoc = $event" #graph></app-poshome>
                     </div>
                 </div>
                 <div class="row top-buffer">
                     <div class="col-12">
-                        <button class="btn btn-primary" style="width: 48%" (click)="addFolder()">New Folder</button>
-                        <button class="btn btn-primary" style="width: 48%" (click)="addDocument()">New Document</button>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-primary" (click)="addFolder(graph, name.value)">
+                                    New Folder
+                                </button>
+                            </div>
+                            <input type="textarea" class="form-control p-3" style="font-size: 20px; text-align: center" #name>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" (click)="addDocument(graph, name.value)">
+                                    New Document
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -30,7 +41,7 @@
             <!--hi i'm a footer-->
             <!--</footer>-->
         </div>
-        <div class="col-8 border-left" *ngIf="pos">
+        <div class="col-8 border-left" *ngIf="selectedDoc">
             <h1>{{selectedDoc.name}}</h1>
             <p>id: {{selectedDoc.id}}</p>
             <p>label: {{selectedDoc.type}}</p>

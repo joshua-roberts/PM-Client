@@ -16,7 +16,6 @@
         <b style="font-family: Courier" *ngIf="root.type !== 'O'">{{(collapsed) ? ' + ' : ' -'}}</b>
         <b>{{root.type}}</b> {{root.name}}
         <b style="font-family: Courier" *ngIf="root.type !== 'O'">{{(childrenGened) ? ' o ' : ' x '}}</b>
-
     </a>
 
     <div class="collapse" [id]="'collapse' + root.id">
@@ -24,7 +23,7 @@
             <li class="list-group-item lst-item"
                 *ngFor="let child of root.children"
                 [ngStyle]="{'background-color': colors[level]}">
-                <app-list (eleClicked)="onChildClick($event)" (eleDblClicked)="onDblClick($event)" [root]="child"
+                <app-list (eleClicked)="onChildClick($event)" (eleDblClicked)="onChildDblClick($event)" [root]="child"
                           [level]="level + 1"></app-list>
             </li>
         </ul>

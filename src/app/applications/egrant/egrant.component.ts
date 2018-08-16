@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {PmService} from '../../services/pm.service';
 
 @Component({
     selector: 'app-egrant',
@@ -47,9 +48,12 @@ export class EgrantComponent implements OnInit {
         }
     ];
 
-    constructor() { }
+    constructor(private pm: PmService) { }
 
     ngOnInit() {
+        this.pm.getEmails('inbox').then((data) => {
+            console.log(data);
+        });
     }
 
     onEmailClick (index) {
@@ -64,7 +68,16 @@ export class EgrantComponent implements OnInit {
         alert('new email');
     }
 
-    sendMessage () {
+    // private int emailNodeId;
+    // private String emailBody;
+    // private String emailSubject;
+    // private String recipient;
+    // private String sender;
+    // private Timestamp timestamp;
+    // private List<Integer> attachments;
+    sendMessage (sender, recipient, subject, body) {
+        const time = new Date();
+        this.pm.sendEmail(null, body, subject, recipient, sender, time.getMilliseconds(), [])
         $('#newEmailModal').modal('toggle');
         alert('message sent');
     }

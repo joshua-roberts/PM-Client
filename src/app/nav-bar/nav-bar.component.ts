@@ -13,6 +13,7 @@ export class NavBarComponent {
     @Input() empActive: boolean;
     @Input() egrantActive: boolean;
     @Input() wordActive: boolean;
+    @Input() nlpActive: boolean;
 
     constructor() {}
 }

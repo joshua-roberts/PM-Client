@@ -27,6 +27,7 @@ export class PmService {
     private evrUrl = 'http://localhost:8080/pm/api/evr';
     private sessionUrl = 'http://localhost:8080/pm/api/sessions';
     private translateUrl = 'http://localhost:8080/pm/api/translate';
+    private emailUrl = 'http://localhost:8080/pm/api/email';
 
     public SUCCESS_CODE = 9000;
 
@@ -200,6 +201,24 @@ export class PmService {
         };
 
         return this.post(this.nodesUrl, data)
+            .then((response) => response['entity']);
+    }
+
+    createNodeWPropsAndContent(baseId, name: string, type: string, props: string[]) {
+        let propsArr: { key: string, value: string }[] = [];
+        for (let prop of props) {
+            let propArr = prop.split('=');
+            if (propArr.length === 2) {
+                propsArr.push({'key': propArr[0], 'value': propArr[1]});
+            }
+        }
+        const data = {
+            'name': name,
+            'type': type,
+            'properties': propsArr
+        };
+
+        return this.post(`${this.nodesUrl}/${baseId}/children`, data)
             .then((response) => response['entity']);
     }
 
@@ -396,6 +415,40 @@ export class PmService {
         }
 
         return this.get(`${this.analyticsUrl}/target;name=${name};type=${type};properties=${properties}/users/permissions`, null)
+            .then(response => response['entity']);
+    }
+
+    getEmails(box) {
+        const params: URLSearchParams = new URLSearchParams();
+        params.set('box', box);
+        params.set('session', localStorage.getItem('SESSION_ID'));
+        return this.get(this.emailUrl, params)
+            .then(response => response['entity']);
+    }
+
+    // private int emailNodeId;
+    // private String emailBody;
+    // private String emailSubject;
+    // private String recipient;
+    // private String sender;
+    // private Timestamp timestamp;
+    // private List<Integer> attachments;
+    sendEmail(emailNodeId: number, emailBody: string, emailSubject: string, recipient: string,
+              sender: string, timestamp: number, attachments) {
+        const email = {
+            'emailNodeId': emailNodeId,
+            'emailBody': emailBody,
+            'emailSubject': emailSubject,
+            'recipient': recipient,
+            'sender': sender,
+            'timestamp': timestamp,
+            'attachments': attachments,
+        };
+
+        const params: URLSearchParams = new URLSearchParams();
+        params.set('session', localStorage.getItem('SESSION_ID'));
+
+        return this.post(`${this.emailUrl}/sendEmail`, email)
             .then(response => response['entity']);
     }
 }
