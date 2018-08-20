@@ -12,50 +12,11 @@ export class NlpComponent implements OnInit {
     attributeTypes = ['UA', 'OA', 'PC'];
     objectTypes = ['O', 'OA'];
     userTypes = ['U', 'UA'];
+    operations = ['read', 'write', 'create', 'delete'];
     maxNodeId = -5;
     nodes = [];
-    xml = {
-        'nodes': [
-          {
-             'id': -1,
-             'name': 'Super PC',
-             'type': 'PC'
-          },
-          {
-             'id': -2,
-             'name': 'super',
-             'type': 'UA',
-             'properties': [
-                {
-                    'key': 'namespace',
-                    'value': 'super'
-                }
-             ]
-          },
-          {
-             'id': -3,
-             'name': 'super',
-             'type': 'U',
-             'properties': [
-                {
-                    'key': 'password',
-                    'value': 'super'
-                }
-             ]
-          }
-       ],
-        'assignments': [
-          {
-             'child': -2,
-             'parent': -1
-          },
-          {
-             'child': -3,
-             'parent': -2
-          }
-       ],
-        'associations': []
-    };
+    osadjb = {};
+    xml;
 
     constructor(private pm: PmService) {
     }
@@ -85,6 +46,15 @@ export class NlpComponent implements OnInit {
         return this.nodes.filter((node) => {
             return node.type === type;
         })
+    }
+
+    getEntries (data) {
+        console.log (data);
+        const entries = [];
+        Object.keys(data).forEach((key) => {
+            entries.push({'key': key, 'value': data[key]});
+        })
+        return entries;
     }
 
     onNodeClick() {
@@ -121,7 +91,18 @@ export class NlpComponent implements OnInit {
     }
 
     onAssociationClick() {
-
+        this.commands.push({
+            type: 'association',
+            data: {
+                'oaName': '',
+                'ops': {
+                    'read': false,
+                    'write': true,
+                    'change': false,
+                    'delete': false
+                }
+            }
+        })
     }
 
     onCommandUpdate (row, col, value) {

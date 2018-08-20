@@ -98,29 +98,22 @@
         <div class="col-12" *ngIf="command.type === 'association'">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text text-success">ASSIGN</span>
+                    <span class="input-group-text text-warning">U can {{'{'}}</span>
                 </div>
-                <select class="custom-select border-0" [value]="command.data.nodeType"
-                        (change)="onCommandUpdate(i, 'nodeType', nType.value)" #nType>
-                    <option selected>Type...</option>
-                    <option *ngFor="let type of nodeTypes" [value]="type">{{type}}</option>
-                </select>
-                <input type="text" class="form-control" placeholder="name" [value]="command.data.nodeName"
-                       (change)="onCommandUpdate(i, 'nodeName', nName.value)" #nName>
+                <!--checklist select for access rights-->
+                <div class="form-check form-check-inline checkbox" *ngFor="let op of getEntries(command.data.ops); let opIndex = index">
+                    <label class="form-check-label mt-2">
+                        <input class="form-check-label" type="checkbox" [checked]="op.value"> {{op.key}}
+                    </label>
+                </div>
+
                 <div class="input-group-prepend">
-                    <span class="input-group-text text-success">to</span>
+                    <span class="input-group-text text-warning">{{'}'}} on the O's in </span>
                 </div>
-                <select class="custom-select border-0" [value]="command.data.parentType"
-                        (change)="onCommandUpdate(i, 'parentType', pType.value)" #pType>
-                    <option selected>Type...</option>
-                    <option *ngFor="let type of attributeTypes" [value]="type">{{type}}</option>
-                </select>
-                <select class="custom-select border-0" [value]="command.data.parentName"
-                        (change)="onCommandUpdate(i, 'parentName', pName.value)" #pName>
-                    <option selected>Choose...</option>
-                    <option [value]="1">Bob Home</option>
-                    <option [value]="1">Doctors</option>
-                    <option [value]="1">Records</option>
+                <select class="custom-select border-0" [value]="command.data.oaName"
+                        (change)="onCommandUpdate(i, 'oaName', oaName.value)" #oaName>
+                    <option selected>Choose OA...</option>
+                    <option *ngFor="let node of filterNodesBy('OA')" [value]="node.id">{{node.name}}</option>
                 </select>
             </div>
         </div>
