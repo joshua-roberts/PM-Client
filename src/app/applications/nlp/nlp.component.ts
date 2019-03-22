@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {PmService} from '../../services/pm.service';
 
 @Component({
@@ -7,6 +7,7 @@ import {PmService} from '../../services/pm.service';
     styleUrls: ['./nlp.component.scss']
 })
 export class NlpComponent implements OnInit {
+    @ViewChild('doc') doc: ElementRef;
     commands = [];
     nodeTypes = ['U', 'UA', 'O', 'OA', 'PC'];
     attributeTypes = ['UA', 'OA', 'PC'];
@@ -22,7 +23,7 @@ export class NlpComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.pm.getNodes(null, null, null, null, null).then ((data) => {
+        this.pm.getNodes(null, null).then ((data) => {
             if (data) {
                 this.nodes = data;
                 // console.log (this.nodes);
@@ -40,6 +41,26 @@ export class NlpComponent implements OnInit {
 
     stringify(obj) {
         return JSON.stringify(obj);
+    }
+
+    onCompileClick() {
+        // const attributes = { id: 'mathApplet',
+        //     code: 'jstojava.MathApplet',  width: 1, height: 1} ;
+        // const parameters = { jnlp_href: 'math_applet.jnlp'} ;
+        // deployJava.runApplet(attributes, parameters, '1.6');
+        if (this.doc.nativeElement.value !== '') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    onSubmitClick() {
+        alert('in submit()');
+    }
+
+    onSaveClick() {
+        alert('in save()');
     }
 
     filterNodesBy (type) {

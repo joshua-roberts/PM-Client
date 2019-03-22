@@ -17,7 +17,8 @@ export class PmService {
         })
     };
     // private httpOptions = new HttpHeaders({'Content-Type': 'application/json'});
-    private nodesUrl = 'http://localhost:8080/pm/api/nodes';
+    private baseGraphUrl = 'http://localhost:8080/pm/api/graph';
+    private nodesUrl = 'http://localhost:8080/pm/api/graph/nodes';
     private assignmentsUrl = 'http://localhost:8080/pm/api/assignments';
     private associationsUrl = 'http://localhost:8080/pm/api/associations';
     private analyticsUrl = 'http://localhost:8080/pm/api/analytics';
@@ -116,13 +117,10 @@ export class PmService {
 
     createAssociation(uaId: number, targetId: number, ops: string[]) {
         const data = {
-            'uaId': uaId,
-            'targetId': targetId,
-            'ops': ops,
-            'inherit': true
+            'operations': ops
         };
 
-        return this.post(this.associationsUrl, data)
+        return this.post(this.baseGraphUrl + '/' + uaId + '/associations/' + targetId, data)
             .then((response) => response['entity']);
     }
 
@@ -167,29 +165,27 @@ export class PmService {
 
     updateAssociation(uaId: number, targetId: number, ops: string[]) {
         const data = {
-            'uaId': uaId,
-            'targetId': targetId,
-            'ops': ops,
-            'inherit': true
+            'operations': ops
         };
 
-        return this.put(`${this.associationsUrl}/${targetId}`, data)
+        return this.put(this.baseGraphUrl + '/' + uaId + '/associations/' + targetId, data)
             .then((response) => response['entity']);
     }
 
     createNode(name: string, type: string) {
         const data = {
             'name': name,
-            'type': type
+            'type': type,
+            'properties': []
         };
         return this.post(this.nodesUrl, data)
             .then((response) => response['entity']);
     }
 
     createNodeWProps(name: string, type: string, props: string[]) {
-        let propsArr: { key: string, value: string }[] = [];
-        for (let prop of props) {
-            let propArr = prop.split('=');
+        const propsArr: { key: string, value: string }[] = [];
+        for (const prop of props) {
+            const propArr = prop.split('=');
             if (propArr.length === 2) {
                 propsArr.push({'key': propArr[0], 'value': propArr[1]});
             }
@@ -205,63 +201,55 @@ export class PmService {
     }
 
     createNodeWPropsAndContent(baseId, name: string, type: string, props: string[]) {
-        let propsArr: { key: string, value: string }[] = [];
-        for (let prop of props) {
-            let propArr = prop.split('=');
+        const propsArr: { key: string, value: string }[] = [];
+        for (const prop of props) {
+            const propArr = prop.split('=');
             if (propArr.length === 2) {
                 propsArr.push({'key': propArr[0], 'value': propArr[1]});
             }
         }
-        const data = {
-            'name': name,
-            'type': type,
-            'properties': propsArr
-        };
+        if (baseId) {
+            const data = {
+                'parentID': baseId,
+                'name': name,
+                'type': type,
+                'properties': propsArr
+            };
 
-        return this.post(`${this.nodesUrl}/${baseId}/children`, data)
-            .then((response) => response['entity']);
+            return this.post(this.nodesUrl, data)
+                .then((response) => response['entity']);
+        } else {
+            return this.createNodeWProps(name, type, props);
+        }
     }
 
     assign(childId: number, parentId: number) {
-        const data = {
-            'childId': childId,
-            'parentId': parentId
-        };
-        return this.post(`${this.assignmentsUrl}`, data)
+        return this.post(`${this.baseGraphUrl}/${childId}/assignments/${parentId}`, null)
             .then((response) => response['entity']);
     }
 
     deassign(childId, parentId) {
-        let params: URLSearchParams = new URLSearchParams();
-        params.set('childId', childId);
-        params.set('parentId', parentId);
-        return this.delete(`${this.assignmentsUrl}`, params)
+        return this.delete(`${this.baseGraphUrl}/${childId}/assignments/${parentId}`, null)
             .then((response) => response['entity']);
     }
 
-    association(childId: number, parentId: number, ops: string[]) {
+    association(uaId: number, targetId: number, ops: string[]) {
         const data = {
-            'uaId': childId,
-            'targetId': parentId,
-            'ops': ops,
-            'inherit': true
+            'ops': ops
         };
-        return this.post(`${this.associationsUrl}`, data)
+        return this.post(`${this.baseGraphUrl}/${uaId}/associations/${targetId}`, data)
             .then((response) => response['entity']);
     }
 
     deleteAssociation(targetId: number, uaId: number) {
-        return this.delete(`${this.associationsUrl}/${targetId}/subjects/${uaId}`, null)
+        return this.delete(`${this.baseGraphUrl}/${uaId}/associations/${targetId}`, null)
             .then((response) => response['entity']);
     }
 
-    getNodes(namespace: string, name: string, type: string, key: string, value: string) {
-        let params: URLSearchParams = new URLSearchParams();
-        params.set('namespace', namespace);
+    getNodes(name: string, type: string) {
+        const params: URLSearchParams = new URLSearchParams();
         params.set('name', name);
         params.set('type', type);
-        params.set('key', key);
-        params.set('value', value);
         // console.log(params);
         return this.get(this.nodesUrl, params)
             .then((response) => response['entity']);
@@ -308,39 +296,39 @@ export class PmService {
     }
 
     getPolicyClasses() {
-        return this.getNodes(null, null, 'PC', null, null);
+        return this.getNodes(null, 'PC');
     }
 
     getObjectAttributes() {
-        return this.getNodes(null, null, 'OA', null, null);
+        return this.getNodes(null, 'OA');
     }
 
     getObjects() {
-        return this.getNodes(null, null, 'O', null, null);
+        return this.getNodes(null, 'O');
     }
 
     getUserAttributes() {
-        return this.getNodes(null, null, 'UA', null, null);
+        return this.getNodes(null, 'UA');
     }
 
     getUsers() {
-        return this.getNodes(null, null, 'U', null, null);
+        return this.getNodes(null, 'U');
     }
 
-    getAssociations() {
-        return this.get(`${this.associationsUrl}`, null)
+    getAssociations(nodeId: number, type: string) {
+        const params: URLSearchParams = new URLSearchParams();
+        params.set('type', type); // either 'source' or 'target'
+        return this.get(`${this.baseGraphUrl}/${nodeId}/associations`, params)
             .then((response) => response['entity']);
     }
 
-    getNode(id: number) {
-        const url = `${this.nodesUrl}/${id}`;
-        return this.get(url, null)
+    getNode(nodeId: number) {
+        return this.get(`${this.nodesUrl}/${nodeId}`, null)
             .then((response) => response['entity']);
     }
 
-    getChildren(id: number) {
-        const url = `${this.nodesUrl}/${id}/children`;
-        return this.get(url, null)
+    getChildren(nodeId: number) {
+        return this.get(`${this.nodesUrl}/${nodeId}/children`, null)
             .then((response) => response['entity']);
     }
 
@@ -352,26 +340,33 @@ export class PmService {
             .then((response) => response['entity']);
     }
 
-    getParents(id: number) {
-        const url = `${this.nodesUrl}/${id}/parents`;
-        return this.get(url, null)
+    getParents(nodeId: number) {
+        return this.get(`${this.nodesUrl}/${nodeId}/parents`, null)
             .then((response) => response['entity']);
     }
 
-    deleteNode(id: number) {
-        const url = `${this.nodesUrl}/${id}`;
-        return this.delete(url, null)
+    deleteNode(nodeId: number) {
+        return this.delete(`${this.nodesUrl}/${nodeId}`, null)
             .then((response) => response['entity']);
     }
 
-    updateNode(node: PmNode) {
-        const url = `${this.nodesUrl}/${node.id}`;
-        console.log(JSON.stringify(node));
-        return this.put(url, node)
+    updateNode(nodeID: number, name: string, props: string[]) {
+        const propsArr: { key: string, value: string }[] = [];
+        for (const prop of props) {
+            const propArr = prop.split('=');
+            if (propArr.length === 2) {
+                propsArr.push({'key': propArr[0], 'value': propArr[1]});
+            }
+        }
+        const data = {
+            'name': name,
+            'properties': propsArr
+        };
+        return this.put(`${this.nodesUrl}/${nodeID}`, data)
             .then((response) => response['entity']);
     }
 
-    public login(username: string, password: string) {
+    login(username: string, password: string) {
         const data = {
             'username': username,
             'password': password
@@ -386,10 +381,17 @@ export class PmService {
             });
     }
 
-    public logout() {
+    logout() {
         const sessionId = localStorage.getItem('SESSION_ID');
         if (sessionId !== null) {
-            this.delete(`${this.sessionUrl}/${sessionId}`, null);
+            return this.delete(`${this.sessionUrl}/${sessionId}`, null)
+                .then(response => {
+                    localStorage.removeItem('SESSION_ID');
+                    localStorage.removeItem('SESSION_USER');
+                    return response['entity'];
+                });
+        } else {
+            return null;
         }
     }
 

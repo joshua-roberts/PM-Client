@@ -9,134 +9,184 @@
     </div>
 </div>
 
-<div class="container">
-    <div class="row mt-3 mb-2">
-        <div class="col-4">
-            <button class="btn btn-primary w-100" (click)="onNodeClick()" [disabled]="!nodes.length">Node</button>
+<div class="container-fluid">
+    <div class="row top-buffer">
+        <div class="col-4 border-right">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="h4 m-0 p-0 text-center">POS</p>
+                    </div>
+                </div>
+                <div class="row top-buffer">
+                    <div class="col-12 scroller">
+                        <app-poshome (selectedDoc)="selectedDoc = $event" #graph></app-poshome>
+                    </div>
+                </div>
+            </div>
+            <!--<app-list (eleClicked)="onDocClick($event)" [level]="0" [root]="pos[0]"></app-list>-->
+            <!--<footer class="footer">-->
+            <!--hi i'm a footer-->
+            <!--</footer>-->
         </div>
-        <div class="col-4">
-            <button class="btn btn-success w-100" (click)="onAssignmentClick()" [disabled]="!nodes.length">Assignment</button>
-        </div>
-        <div class="col-4">
-            <button class="btn btn-warning w-100" (click)="onAssociationClick()" [disabled]="!nodes.length">Association</button>
+        <div class="col-8 border-left">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div style="height: 3vh;">
+                            <p class="h3 m-0 p-0 text-center">Input</p>
+                        </div>
+                        <div class="document" style="height: 67vh;">
+                            <textarea style="height: 100% !important; width: 100%; border: 0px;" #doc></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row mt-3 mb-2">
+                    <div class="col-3">
+                        <button class="btn btn-primary w-100" (click)="onCompileClick()" [disabled]="!doc.value">
+                            Compile
+                        </button>
+                    </div>
+                    <div class="col-3">
+                        <button class="btn btn-success w-100" (click)="onSubmitClick()" [disabled]="onCompileClick()">
+                            Submit
+                        </button>
+                    </div>
+                    <div class="col-3">
+                        <button class="btn btn-warning w-100" (click)="onSaveClick()" [disabled]="onCompileClick()">
+                            Save
+                        </button>
+                    </div>
+                    <div class="col-3">
+                        <button class="btn btn-info w-100" (click)="onOpenXML()" [disabled]="onCompileClick()">
+                            XML
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="container scroller">
-    <div class="row">
-        <div class="col-5"><hr></div>
-        <div class="col-2 text-center">Start</div>
-        <div class="col-5"><hr></div>
-    </div>
-    <div *ngFor="let command of commands; let i = index" class="row">
-        <!--Create Node-->
-        <div class="col-12" *ngIf="command.type === 'node'">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text text-primary">CREATE</span>
-                </div>
-                <select class="custom-select border-0" [value]="command.data.nodeType"
-                        (change)="onCommandUpdate(i, 'nodeType', nType.value)" #nType>
-                    <option selected>Type...</option>
-                    <option *ngFor="let type of nodeTypes" [value]="type">{{type}}</option>
-                </select>
-                <input type="text" class="form-control" placeholder="name" [value]="command.data.nodeName"
-                       (change)="onCommandUpdate(i, 'nodeName', nName.value)" #nName>
-                <div class="input-group-prepend">
-                    <span class="input-group-text text-primary">in</span>
-                </div>
-                <select class="custom-select border-0" [value]="command.data.parentType"
-                        (change)="onCommandUpdate(i, 'parentType', pType.value)" #pType>
-                    <option selected>Type...</option>
-                    <option *ngFor="let type of attributeTypes" [value]="type">{{type}}</option>
-                </select>
-                <select class="custom-select border-0" [value]="command.data.parentId"
-                        (change)="onCommandUpdate(i, 'parentId', pId.value)"
-                        [disabled]="!filterNodesBy(pType.value).length" #pId>
-                    <option selected>Choose...</option>
-                    <option *ngFor="let node of filterNodesBy(pType.value)" [value]="node.id">{{node.name}}</option>
-                </select>
-            </div>
-        </div>
+<!--<div class="container">-->
+    <!--<div class="row mt-3 mb-2">-->
+        <!--<div class="col-4">-->
+            <!--<button class="btn btn-primary w-100" (click)="onNodeClick()" [disabled]="!nodes.length">Node</button>-->
+        <!--</div>-->
+        <!--<div class="col-4">-->
+            <!--<button class="btn btn-success w-100" (click)="onAssignmentClick()" [disabled]="!nodes.length">Assignment</button>-->
+        <!--</div>-->
+        <!--<div class="col-4">-->
+            <!--<button class="btn btn-warning w-100" (click)="onAssociationClick()" [disabled]="!nodes.length">Association</button>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
 
-        <!--Create Assignment-->
-        <div class="col-12" *ngIf="command.type === 'assignment'">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text text-success">ASSIGN</span>
-                </div>
-                <select class="custom-select border-0" [value]="command.data.nodeType"
-                        (change)="onCommandUpdate(i, 'nodeType', nType.value)" #nType>
-                    <option selected>Type...</option>
-                    <option *ngFor="let type of nodeTypes" [value]="type">{{type}}</option>
-                </select>
-                <select class="custom-select border-0" [value]="command.data.nodeId"
-                        (change)="onCommandUpdate(i, 'nodeId', nId.value)"
-                        [disabled]="!filterNodesBy(nType.value).length" #nId>
-                    <option selected>Choose...</option>
-                    <option *ngFor="let node of filterNodesBy(nType.value)" [value]="node.id">{{node.name}}</option>
-                </select>
-                <div class="input-group-prepend">
-                    <span class="input-group-text text-success">to</span>
-                </div>
-                <select class="custom-select border-0" [value]="command.data.parentType"
-                        (change)="onCommandUpdate(i, 'parentType', pType.value)" #pType>
-                    <option selected>Type...</option>
-                    <option *ngFor="let type of attributeTypes" [value]="type">{{type}}</option>
-                </select>
-                <select class="custom-select border-0" [value]="command.data.parentId"
-                        (change)="onCommandUpdate(i, 'parentId', pId.value)"
-                        [disabled]="!filterNodesBy(pType.value).length" #pId>
-                    <option selected>Choose...</option>
-                    <option *ngFor="let node of filterNodesBy(pType.value)" [value]="node.id">{{node.name}}</option>
-                </select>
-            </div>
-        </div>
+<!--<div class="container scroller">-->
+    <!--<div class="row">-->
+        <!--<div class="col-5"><hr></div>-->
+        <!--<div class="col-2 text-center">Start</div>-->
+        <!--<div class="col-5"><hr></div>-->
+    <!--</div>-->
+    <!--<div *ngFor="let command of commands; let i = index" class="row">-->
+        <!--&lt;!&ndash;Create Node&ndash;&gt;-->
+        <!--<div class="col-12" *ngIf="command.type === 'node'">-->
+            <!--<div class="input-group mb-3">-->
+                <!--<div class="input-group-prepend">-->
+                    <!--<span class="input-group-text text-primary">CREATE</span>-->
+                <!--</div>-->
+                <!--<select class="custom-select border-0" [value]="command.data.nodeType"-->
+                        <!--(change)="onCommandUpdate(i, 'nodeType', nType.value)" #nType>-->
+                    <!--<option selected>Type...</option>-->
+                    <!--<option *ngFor="let type of nodeTypes" [value]="type">{{type}}</option>-->
+                <!--</select>-->
+                <!--<input type="text" class="form-control" placeholder="name" [value]="command.data.nodeName"-->
+                       <!--(change)="onCommandUpdate(i, 'nodeName', nName.value)" #nName>-->
+                <!--<div class="input-group-prepend">-->
+                    <!--<span class="input-group-text text-primary">in</span>-->
+                <!--</div>-->
+                <!--<select class="custom-select border-0" [value]="command.data.parentType"-->
+                        <!--(change)="onCommandUpdate(i, 'parentType', pType.value)" #pType>-->
+                    <!--<option selected>Type...</option>-->
+                    <!--<option *ngFor="let type of attributeTypes" [value]="type">{{type}}</option>-->
+                <!--</select>-->
+                <!--<select class="custom-select border-0" [value]="command.data.parentId"-->
+                        <!--(change)="onCommandUpdate(i, 'parentId', pId.value)"-->
+                        <!--[disabled]="!filterNodesBy(pType.value).length" #pId>-->
+                    <!--<option selected>Choose...</option>-->
+                    <!--<option *ngFor="let node of filterNodesBy(pType.value)" [value]="node.id">{{node.name}}</option>-->
+                <!--</select>-->
+            <!--</div>-->
+        <!--</div>-->
 
-        <!--Create Association-->
-        <div class="col-12" *ngIf="command.type === 'association'">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text text-warning">U can {{'{'}}</span>
-                </div>
-                <!--checklist select for access rights-->
-                <div class="form-check form-check-inline checkbox" *ngFor="let op of getEntries(command.data.ops); let opIndex = index">
-                    <label class="form-check-label mt-2">
-                        <input class="form-check-label" type="checkbox" [checked]="op.value"> {{op.key}}
-                    </label>
-                </div>
+        <!--&lt;!&ndash;Create Assignment&ndash;&gt;-->
+        <!--<div class="col-12" *ngIf="command.type === 'assignment'">-->
+            <!--<div class="input-group mb-3">-->
+                <!--<div class="input-group-prepend">-->
+                    <!--<span class="input-group-text text-success">ASSIGN</span>-->
+                <!--</div>-->
+                <!--<select class="custom-select border-0" [value]="command.data.nodeType"-->
+                        <!--(change)="onCommandUpdate(i, 'nodeType', nType.value)" #nType>-->
+                    <!--<option selected>Type...</option>-->
+                    <!--<option *ngFor="let type of nodeTypes" [value]="type">{{type}}</option>-->
+                <!--</select>-->
+                <!--<select class="custom-select border-0" [value]="command.data.nodeId"-->
+                        <!--(change)="onCommandUpdate(i, 'nodeId', nId.value)"-->
+                        <!--[disabled]="!filterNodesBy(nType.value).length" #nId>-->
+                    <!--<option selected>Choose...</option>-->
+                    <!--<option *ngFor="let node of filterNodesBy(nType.value)" [value]="node.id">{{node.name}}</option>-->
+                <!--</select>-->
+                <!--<div class="input-group-prepend">-->
+                    <!--<span class="input-group-text text-success">to</span>-->
+                <!--</div>-->
+                <!--<select class="custom-select border-0" [value]="command.data.parentType"-->
+                        <!--(change)="onCommandUpdate(i, 'parentType', pType.value)" #pType>-->
+                    <!--<option selected>Type...</option>-->
+                    <!--<option *ngFor="let type of attributeTypes" [value]="type">{{type}}</option>-->
+                <!--</select>-->
+                <!--<select class="custom-select border-0" [value]="command.data.parentId"-->
+                        <!--(change)="onCommandUpdate(i, 'parentId', pId.value)"-->
+                        <!--[disabled]="!filterNodesBy(pType.value).length" #pId>-->
+                    <!--<option selected>Choose...</option>-->
+                    <!--<option *ngFor="let node of filterNodesBy(pType.value)" [value]="node.id">{{node.name}}</option>-->
+                <!--</select>-->
+            <!--</div>-->
+        <!--</div>-->
 
-                <div class="input-group-prepend">
-                    <span class="input-group-text text-warning">{{'}'}} on the O's in </span>
-                </div>
-                <select class="custom-select border-0" [value]="command.data.oaName"
-                        (change)="onCommandUpdate(i, 'oaName', oaName.value)" #oaName>
-                    <option selected>Choose OA...</option>
-                    <option *ngFor="let node of filterNodesBy('OA')" [value]="node.id">{{node.name}}</option>
-                </select>
-            </div>
-        </div>
+        <!--&lt;!&ndash;Create Association&ndash;&gt;-->
+        <!--<div class="col-12" *ngIf="command.type === 'association'">-->
+            <!--<div class="input-group mb-3">-->
+                <!--<div class="input-group-prepend">-->
+                    <!--<span class="input-group-text text-warning">U can {{'{'}}</span>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;checklist select for access rights&ndash;&gt;-->
+                <!--<div class="form-check form-check-inline checkbox" *ngFor="let op of getEntries(command.data.ops); let opIndex = index">-->
+                    <!--<label class="form-check-label mt-2">-->
+                        <!--<input class="form-check-label" type="checkbox" [checked]="op.value" [class.active]="op.value"> {{op.key}}-->
+                    <!--</label>-->
+                <!--</div>-->
 
-    </div>
-    <div class="row">
-        <div class="col-5"><hr></div>
-        <div class="col-2 text-center">End</div>
-        <div class="col-5"><hr></div>
-    </div>
-</div>
+                <!--<div class="input-group-prepend">-->
+                    <!--<span class="input-group-text text-warning">{{'}'}} on the O's in </span>-->
+                <!--</div>-->
+                <!--<select class="custom-select border-0" [value]="command.data.oaName"-->
+                        <!--(change)="onCommandUpdate(i, 'oaName', oaName.value)" #oaName>-->
+                    <!--<option selected>Choose OA...</option>-->
+                    <!--<option *ngFor="let node of filterNodesBy('OA')" [value]="node.id">{{node.name}}</option>-->
+                <!--</select>-->
+            <!--</div>-->
+        <!--</div>-->
 
-<footer class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <button type="button" class="btn btn-info w-100" (click)="onOpenXML()">
-                    Create XML
-                </button>
-            </div>
-        </div>
-    </div>
-</footer>
+    <!--</div>-->
+    <!--<div class="row">-->
+        <!--<div class="col-5"><hr></div>-->
+        <!--<div class="col-2 text-center">End</div>-->
+        <!--<div class="col-5"><hr></div>-->
+    <!--</div>-->
+<!--</div>-->
+
 
 <div class="modal fade" id="xmlModal" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
